@@ -19,7 +19,5 @@ function iniset_rpc_backend {
     local file=$2
     local section=${3:-DEFAULT}
 
-    iniset $file $section transport_url "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:$RABBIT_PORT"
+    iniset $file $section transport_url "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672"
 }
-
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
