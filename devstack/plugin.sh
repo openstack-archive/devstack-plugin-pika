@@ -14,10 +14,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+function get_transport_url {
+    echo "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672"
+}
+
 function iniset_rpc_backend {
     local package=$1
     local file=$2
     local section=${3:-DEFAULT}
 
-    iniset $file $section transport_url "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672"
+    iniset $file $section transport_url $(get_transport_url)
 }
