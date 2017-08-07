@@ -15,13 +15,24 @@
 # under the License.
 
 function get_transport_url {
-    echo "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672"
+    local virtual_host=$1
+    echo "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672/$virtual_host"
 }
+
+function get_notification_url {
+    local virtual_host=$1
+    echo "pika://$RABBIT_USERID:$RABBIT_PASSWORD@$RABBIT_HOST:5672/$virtual_host"
+}
+
+# Note: no need to override default 'rpc_backend_add_vhost' since the
+# backend is also rabbitmq
 
 function iniset_rpc_backend {
     local package=$1
     local file=$2
     local section=${3:-DEFAULT}
+    local virtual_host=$4
 
-    iniset $file $section transport_url $(get_transport_url)
+    iniset $file $section transport_url $(get_transport_url "$virtual_host")
+    iniset $file oslo_messaging_notifications transport_url $(get_notification_url "$virtual_host")
 }
