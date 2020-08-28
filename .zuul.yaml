@@ -1,7 +1,0 @@
-- project:
-    check:
-      jobs:
-        - openstack-tox-bashate
-    gate:
-      jobs:
-        - openstack-tox-bashate
